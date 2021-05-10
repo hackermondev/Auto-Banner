@@ -6,6 +6,7 @@ use twilight_gateway::{cluster::{Cluster, ShardScheme}, Event};
 use twilight_http::{Client as HttpClient, request::AuditLogReason};
 use twilight_model::gateway::{payload::update_status::UpdateStatusInfo, presence::Status, Intents};
 use twilight_util::snowflake::Snowflake;
+use regex::RegexBuilder;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
@@ -48,11 +49,15 @@ async fn handle_event(
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     match event {
         Event::MemberAdd(member) => {
+            let regex = RegexBuilder::new("/token|john f|motion")
+              .case_insensitive(true)
+              .build()?;
+
             let username = member.user.name.to_lowercase();
             let reason = "User%20is%20most%20likely%20a%20spam%20account."; // https://github.com/twilight-rs/twilight/pull/803
             let now = Instant::now().elapsed().as_millis();
 
-            if username.contains("/token") || username.contains("john f") || username.contains("motion") || now + 60000 > u128::try_from(member.user.id.timestamp())? {
+            if regex.is_match(username.as_str()) || now + 60000 > u128::try_from(member.user.id.timestamp())? {
                 let ban = http
                   .create_ban(member.guild_id, member.user.id)
                   .delete_message_days(7)?
