@@ -2,7 +2,6 @@ use std::{error::Error, env};
 use futures::stream::StreamExt;
 use std::convert::TryFrom;
 use std::time::Instant;
-use twilight_cache_inmemory::{InMemoryCache, ResourceType};
 use twilight_gateway::{cluster::{Cluster, ShardScheme}, Event};
 use twilight_http::{Client as HttpClient, request::AuditLogReason};
 use twilight_model::gateway::{payload::update_status::UpdateStatusInfo, presence::Status, Intents};
@@ -33,14 +32,9 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
 
     let http = HttpClient::new(&token);
 
-    let cache = InMemoryCache::builder()
-        .resource_types(ResourceType::MEMBER)
-        .build();
-
     let mut events = cluster.events();
 
     while let Some((shard_id, event)) = events.next().await {
-        cache.update(&event);
         tokio::spawn(handle_event(shard_id, event, http.clone()));
     }
 

@@ -28,7 +28,6 @@ version = "0.1.0"
 dependencies = [
  "futures",
  "tokio",
- "twilight-cache-inmemory",
  "twilight-gateway",
  "twilight-http",
  "twilight-model",
@@ -1071,19 +1070,6 @@ dependencies = [
  "sha-1",
  "url",
  "utf-8",
-]
-
-[[package]]
-name = "twilight-cache-inmemory"
-version = "0.3.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a50459bbc313e2e0430b0027ad69401e34dff5b16e3d916aec1b3245c49e8b7c"
-dependencies = [
- "bitflags",
- "dashmap",
- "serde",
- "tracing",
- "twilight-model",
 ]
 
 [[package]]
