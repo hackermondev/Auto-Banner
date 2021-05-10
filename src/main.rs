@@ -57,7 +57,7 @@ async fn handle_event(
             let reason = "User%20is%20most%20likely%20a%20spam%20account."; // https://github.com/twilight-rs/twilight/pull/803
             let now = Instant::now().elapsed().as_millis();
 
-            if regex.is_match(&username) || now + 60000 > u128::try_from(member.user.id.timestamp())? {
+            if regex.is_match(&username) || now - 60000 < u128::try_from(member.user.id.timestamp())? {
                 let ban = http
                   .create_ban(member.guild_id, member.user.id)
                   .delete_message_days(7)?
