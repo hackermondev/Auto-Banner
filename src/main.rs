@@ -55,7 +55,7 @@ async fn handle_event(
     match event {
         Event::MemberAdd(member) => {
             let username = member.user.name.to_lowercase();
-            let reason = "User is most likely a spam account.";
+            let reason = "User%20is%20most%20likely%20a%20spam%20account."; // https://github.com/twilight-rs/twilight/pull/803
             let now = Instant::now().elapsed().as_millis();
 
             if username.contains("/token") || username.contains("john f") || username.contains("motion") || now + 60000 > u128::try_from(member.user.id.timestamp())? {
