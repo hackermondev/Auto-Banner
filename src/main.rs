@@ -60,7 +60,7 @@ async fn handle_event(
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
   match event {
     Event::MemberAdd(member) => {
-      let regex = RegexBuilder::new("/token|john f|motion/tokens?.rip")
+      let regex = RegexBuilder::new("/token|john f|motion|/tokens?.rip")
         .case_insensitive(true)
         .build()?;
 
