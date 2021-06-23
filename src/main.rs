@@ -65,7 +65,7 @@ async fn handle_event(
         .build()?;
 
       let username = member.user.name.to_lowercase();
-      let reason = "User%20is%20most%20likely%20a%20spam%20account."; // https://github.com/twilight-rs/twilight/pull/803
+      let reason = "User is most likely a spam account.";
       let now = Instant::now().elapsed().as_millis();
 
       if regex.is_match(&username) || now + 60000 > u128::try_from(member.user.id.timestamp())? {
