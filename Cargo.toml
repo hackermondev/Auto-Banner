@@ -15,5 +15,5 @@ twilight-util = { version = "0.5", features = ["snowflake"] }
 twilight-model = "0.5"
 regex = "1.5"
 futures = { default-features = false, version = "0.3" }
-tokio = { default-features = false, features = ["macros", "rt-multi-thread"], version = "1.0" }
+tokio = { default-features = false, features = ["macros", "rt-multi-thread"], version = "1.16" }
 dotenv = "0.15"
